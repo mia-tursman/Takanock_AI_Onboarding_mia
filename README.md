@@ -19,11 +19,11 @@ An internal learning resource for Takanock employees to get started with Claude 
 ## 📬 Questions & Support
 Reach out to any of the following:
 
-| Name | Role | Email |
-|------|------|-------|
-| Ivan Benavides | | Ibenavides@takanock.com |
-| Ivy McConarty | AI Intern | Imcconarty@takanock.com |
-| Mia Tursman | AI Intern | Mtursman@takanock.com |
+| Name | Role |
+|------|------|
+| Ivan Benavides |
+| Ivy McConarty | AI Intern | 
+| Mia Tursman | AI Intern |
 
 ---
 *Built and maintained by the Takanock AI team.*
