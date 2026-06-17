@@ -3,137 +3,85 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Learning Hub</title>
+<title>Takanock AI Learning Hub</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   :root{
-    --navy:#0D1F4C;
-    --navy-mid:#1a2f63;
-    --navy-light:#243a78;
-    --coral:#E8502A;
-    --coral-light:#f0765a;
-    --coral-bg:#fdf0ec;
-    --slate:#4A6FA5;
-    --cream:#F2EFE6;
-    --cream-dark:#e8e4d8;
-    --white:#ffffff;
-    --text-primary:#0D1F4C;
-    --text-secondary:#3a4a6b;
-    --text-muted:#6b7a9b;
-    --border:#d8d4c8;
-    --sidebar-w:240px;
-    --top-h:60px;
+    --navy:#0D1F4C;--navy-mid:#1a2f63;--navy-light:#243a78;
+    --coral:#E8502A;--slate:#4A6FA5;--cream:#F2EFE6;--cream-dark:#e8e4d8;
+    --white:#fff;--text-primary:#0D1F4C;--text-secondary:#3a4a6b;
+    --text-muted:#6b7a9b;--border:#d8d4c8;--sidebar-w:240px;--top-h:60px;
   }
   body{font-family:system-ui,-apple-system,sans-serif;background:var(--cream);color:var(--text-primary);display:flex;flex-direction:column;min-height:100vh;font-size:15px}
-
-  /* TOP NAV */
   header{height:var(--top-h);background:var(--navy);border-bottom:2px solid var(--coral);display:flex;align-items:center;padding:0 1.5rem;gap:1rem;position:sticky;top:0;z-index:100}
-  .logo{font-size:16px;font-weight:600;color:var(--white);display:flex;align-items:center;gap:8px;letter-spacing:0.01em}
+  .logo{font-size:16px;font-weight:600;color:var(--white);display:flex;align-items:center;gap:8px}
   .logo i{font-size:20px;color:var(--coral)}
   .logo-brand{color:var(--coral)}
   .header-sub{font-size:13px;color:rgba(255,255,255,0.55);border-left:1px solid rgba(255,255,255,0.2);padding-left:1rem;margin-left:0.5rem}
-
-  /* LAYOUT */
   .layout{display:flex;flex:1}
-
-  /* SIDEBAR */
   nav{width:var(--sidebar-w);background:var(--navy);padding:1rem 0;position:sticky;top:var(--top-h);height:calc(100vh - var(--top-h));overflow-y:auto;flex-shrink:0}
   .nav-section-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.35);padding:0.85rem 1.25rem 0.35rem}
   .nav-item{display:flex;align-items:center;gap:10px;padding:8px 1.25rem;font-size:13px;color:rgba(255,255,255,0.65);cursor:pointer;border-left:2px solid transparent;transition:all 0.15s}
   .nav-item:hover{background:var(--navy-mid);color:var(--white)}
   .nav-item.active{color:var(--white);border-left-color:var(--coral);background:var(--navy-light)}
   .nav-item i{font-size:16px;flex-shrink:0}
-  .nav-item.company.active{border-left-color:var(--coral-light)}
-
-  /* MAIN */
   main{flex:1;padding:2rem;max-width:880px}
-
-  /* PAGE */
   .page{display:none}
   .page.active{display:block}
   .page-header{margin-bottom:2rem}
   .page-header h1{font-size:24px;font-weight:600;color:var(--navy);margin-bottom:6px}
   .page-header p{color:var(--text-secondary);font-size:15px;line-height:1.6;max-width:620px}
-
-  /* TAGS */
   .tag{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.05em}
   .tag-claude{background:var(--navy);color:var(--white)}
   .tag-company{background:var(--coral);color:var(--white)}
   .tag-ai{background:var(--slate);color:var(--white)}
-
-  /* CARDS */
   .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:2rem}
   .card{background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:1.25rem;cursor:pointer;transition:all 0.15s;border-top:3px solid var(--cream-dark)}
   .card:hover{border-top-color:var(--coral);box-shadow:0 2px 8px rgba(13,31,76,0.08)}
   .card i{font-size:22px;color:var(--coral);margin-bottom:10px;display:block}
   .card h3{font-size:14px;font-weight:600;margin-bottom:4px;color:var(--navy)}
   .card p{font-size:13px;color:var(--text-muted);line-height:1.5}
-
-  /* SECTIONS */
   .section{margin-bottom:2rem}
   .section h2{font-size:16px;font-weight:600;color:var(--navy);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:2px solid var(--coral);display:inline-block}
-  .section h2-wrap{border-bottom:0.5px solid var(--border);padding-bottom:0.75rem;margin-bottom:1rem}
   .section h3{font-size:15px;font-weight:600;color:var(--navy);margin:1.25rem 0 0.5rem}
   .section p{font-size:14px;color:var(--text-secondary);line-height:1.7;margin-bottom:0.75rem}
-
-  /* TIP BOXES */
   .tip{background:var(--white);border-left:3px solid var(--coral);border-radius:0 8px 8px 0;padding:0.875rem 1rem;margin:1rem 0;font-size:14px;color:var(--text-secondary);line-height:1.6}
   .tip strong{color:var(--coral);font-weight:600}
   .tip-navy{background:var(--navy);border-left-color:var(--coral);color:rgba(255,255,255,0.85)}
   .tip-navy strong{color:var(--coral)}
   .tip-slate{background:#EDF2FA;border-left-color:var(--slate);color:var(--text-secondary)}
   .tip-slate strong{color:var(--slate)}
-
-  /* STEPS */
   .steps{counter-reset:step;margin:1rem 0}
   .step{display:flex;gap:1rem;margin-bottom:1rem;font-size:14px;line-height:1.6;color:var(--text-secondary)}
   .step::before{counter-increment:step;content:counter(step);background:var(--coral);color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0;margin-top:1px}
-
-  /* EXAMPLE BOXES */
   .example{background:var(--cream);border:0.5px solid var(--border);border-left:3px solid var(--slate);border-radius:0 8px 8px 0;padding:0.875rem 1rem;font-size:13px;color:var(--text-secondary);margin:0.75rem 0;line-height:1.6}
   .example-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--slate);margin-bottom:6px}
-
-  /* EDIT BANNER */
-  .edit-banner{background:#FFF8F6;border:0.5px solid var(--coral);border-radius:8px;padding:0.875rem 1rem;font-size:13px;color:var(--text-secondary);margin-bottom:1.5rem;display:flex;gap:10px;align-items:flex-start}
-  .edit-banner i{font-size:18px;color:var(--coral);flex-shrink:0;margin-top:1px}
-  .edit-banner strong{color:var(--coral)}
-
-  /* HOME HERO */
   .hero{background:var(--navy);border-radius:12px;padding:2rem 2.5rem;margin-bottom:2rem;position:relative;overflow:hidden}
   .hero::after{content:'';position:absolute;bottom:0;right:0;width:120px;height:100%;background:var(--coral);opacity:0.12;clip-path:polygon(60% 0,100% 0,100% 100%,0% 100%)}
   .hero h1{font-size:26px;font-weight:600;color:var(--white);margin-bottom:8px}
   .hero p{font-size:15px;color:rgba(255,255,255,0.75);max-width:540px;line-height:1.6}
-  .hero-accent{display:inline-block;color:var(--coral);font-weight:700}
-
-  /* CHIPS */
+  .hero-accent{color:var(--coral);font-weight:700}
   .chips{display:flex;flex-wrap:wrap;gap:8px;margin:0.75rem 0}
   .chip{background:var(--white);border:0.5px solid var(--border);border-radius:20px;padding:5px 12px;font-size:13px;color:var(--text-secondary);display:flex;align-items:center;gap:6px}
   .chip i{font-size:15px;color:var(--coral)}
-
-  /* TABLE */
   table{width:100%;border-collapse:collapse;font-size:14px;margin:1rem 0}
   th{text-align:left;padding:10px 12px;font-weight:600;background:var(--navy);color:var(--white);font-size:13px}
-  th:first-child{border-radius:6px 0 0 0}
-  th:last-child{border-radius:0 6px 0 0}
   td{padding:10px 12px;border-bottom:0.5px solid var(--border);color:var(--text-secondary);vertical-align:top;background:var(--white)}
   tr:nth-child(even) td{background:var(--cream)}
   tr:last-child td{border-bottom:none}
-
-  /* SECTION DIVIDER */
-  .section-divider{border:none;border-top:0.5px solid var(--border);margin:1.5rem 0}
+  .intake-step{background:var(--white);border:0.5px solid var(--border);border-radius:10px;border-top:3px solid var(--coral);padding:1.25rem 1.5rem;display:flex;gap:1.25rem;align-items:flex-start;margin-bottom:1.25rem}
+  .intake-num{background:var(--coral);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0}
+  .intake-title{font-weight:600;color:var(--navy);margin-bottom:4px}
+  .intake-body{font-size:14px;color:var(--text-secondary);line-height:1.7}
+  .use-case{background:var(--white);border:0.5px solid var(--border);border-radius:10px;border-left:4px solid var(--coral);padding:1.25rem 1.5rem;display:flex;gap:1.25rem;align-items:flex-start;margin-bottom:1rem}
 </style>
 </head>
 <body>
-
 <header>
-  <div class="logo">
-    <i class="ti ti-sparkles"></i>
-    <span><span class="logo-brand">takanock</span> AI Learning Hub</span>
-  </div>
+  <div class="logo"><i class="ti ti-sparkles"></i><span><span class="logo-brand">takanock</span> AI Learning Hub</span></div>
   <span class="header-sub">Your guide to Claude &amp; AI tools</span>
 </header>
-
 <div class="layout">
   <nav>
     <div class="nav-section-label">Start here</div>
@@ -150,8 +98,10 @@
     <div class="nav-item" onclick="showPage('agents',this)"><i class="ti ti-robot"></i> AI Agents</div>
     <div class="nav-item" onclick="showPage('workflows',this)"><i class="ti ti-git-branch"></i> Automating Workflows</div>
 
-    <div class="nav-section-label">Takanock</div>
-    <div class="nav-item company" onclick="showPage('company',this)"><i class="ti ti-building"></i> Company Corner</div>
+    <div class="nav-section-label">Takanock Resources</div>
+    <div class="nav-item" onclick="showPage('asktakanock',this)"><i class="ti ti-message-chatbot"></i> Ask Takanock</div>
+    <div class="nav-item" onclick="showPage('ai101',this)"><i class="ti ti-clipboard-list"></i> AI 101: Automation Intake</div>
+    <div class="nav-item" onclick="showPage('support',this)"><i class="ti ti-headset"></i> Questions &amp; Support</div>
   </nav>
 
   <main>
@@ -163,67 +113,46 @@
         <p>Your go-to resource for getting started with Claude and AI tools at work. Explore the modules below to level up your skills.</p>
       </div>
       <div class="card-grid">
-        <div class="card" onclick="showPageById('chat')"><i class="ti ti-message-circle"></i><h3>Claude Chat</h3><p>Prompting basics and tips</p></div>
-        <div class="card" onclick="showPageById('cowork')"><i class="ti ti-users"></i><h3>Cowork</h3><p>Collaborate with AI on your desktop</p></div>
-        <div class="card" onclick="showPageById('code')"><i class="ti ti-code"></i><h3>Claude Code</h3><p>AI-powered coding assistant</p></div>
-        <div class="card" onclick="showPageById('projects')"><i class="ti ti-folder"></i><h3>Projects</h3><p>Organize and share your AI work</p></div>
-        <div class="card" onclick="showPageById('customize')"><i class="ti ti-adjustments"></i><h3>Customize</h3><p>Skills, connectors &amp; preferences</p></div>
-        <div class="card" onclick="showPageById('agents')"><i class="ti ti-robot"></i><h3>AI Agents</h3><p>Autonomous multi-step AI tasks</p></div>
-        <div class="card" onclick="showPageById('workflows')"><i class="ti ti-git-branch"></i><h3>Workflows</h3><p>Automate with AI tools</p></div>
-        <div class="card" onclick="showPageById('company')"><i class="ti ti-building"></i><h3>Company Corner</h3><p>Internal tools &amp; examples</p></div>
+        <div class="card" onclick="showPage('chat',getNavItem('chat'))"><i class="ti ti-message-circle"></i><h3>Claude Chat</h3><p>Prompting basics and tips</p></div>
+        <div class="card" onclick="showPage('cowork',getNavItem('cowork'))"><i class="ti ti-users"></i><h3>Cowork</h3><p>Collaborate with AI on your desktop</p></div>
+        <div class="card" onclick="showPage('code',getNavItem('code'))"><i class="ti ti-code"></i><h3>Claude Code</h3><p>AI-powered coding assistant</p></div>
+        <div class="card" onclick="showPage('projects',getNavItem('projects'))"><i class="ti ti-folder"></i><h3>Projects</h3><p>Organize and share your AI work</p></div>
+        <div class="card" onclick="showPage('customize',getNavItem('customize'))"><i class="ti ti-adjustments"></i><h3>Customize</h3><p>Skills, connectors &amp; preferences</p></div>
+        <div class="card" onclick="showPage('agents',getNavItem('agents'))"><i class="ti ti-robot"></i><h3>AI Agents</h3><p>Autonomous multi-step AI tasks</p></div>
+        <div class="card" onclick="showPage('workflows',getNavItem('workflows'))"><i class="ti ti-git-branch"></i><h3>Workflows</h3><p>Automate with AI tools</p></div>
+        <div class="card" onclick="showPage('company',getNavItem('company'))"><i class="ti ti-building"></i><h3>Company Corner</h3><p>Internal tools &amp; examples</p></div>
       </div>
     </div>
 
     <!-- CLAUDE CHAT -->
     <div class="page" id="page-chat">
-      <div class="page-header">
-        <span class="tag tag-claude">Claude</span>
-        <h1>Introduction to Claude Chat</h1>
-        <p>Claude Chat is your AI assistant for writing, research, analysis, brainstorming, and more. This module covers the basics of getting great results.</p>
-      </div>
-      <div class="section">
-        <h2>What is Claude?</h2>
-        <p>Claude is an AI assistant made by Anthropic. You can have natural conversations with it, ask questions, get feedback on documents, draft emails, summarize content, and much more.</p>
-        <p>Claude is available via claude.ai in your browser, the Claude mobile app, and through integrations your company may have set up.</p>
-      </div>
-      <div class="section">
-        <h2>How to write a good prompt</h2>
-        <p>The quality of Claude's response depends a lot on how you frame your request. Think of it like briefing a smart colleague.</p>
+      <div class="page-header"><span class="tag tag-claude">Claude</span><h1>Introduction to Claude Chat</h1><p>Claude Chat is your AI assistant for writing, research, analysis, brainstorming, and more.</p></div>
+      <div class="section"><h2>What is Claude?</h2><p>Claude is an AI assistant made by Anthropic. You can have natural conversations with it, ask questions, get feedback on documents, draft emails, summarize content, and much more. Claude is available via claude.ai in your browser, the Claude mobile app, and through integrations your company may have set up.</p></div>
+      <div class="section"><h2>How to write a good prompt</h2>
         <div class="steps">
-          <div class="step">Be specific about what you want. Instead of "write an email," try "write a short follow-up email to a client after a sales demo."</div>
-          <div class="step">Give context. Who is the audience? What's the goal? What format do you need?</div>
+          <div class="step">Be specific. Instead of "write an email," try "write a short follow-up email to a client after a sales demo."</div>
+          <div class="step">Give context — who is the audience, what's the goal, what format do you need?</div>
           <div class="step">Include examples if you have them — "write it in the style of this example: ..."</div>
-          <div class="step">Iterate. If the first response isn't quite right, ask Claude to adjust it.</div>
+          <div class="step">Iterate. If the first response isn't right, ask Claude to adjust it.</div>
         </div>
         <div class="tip"><strong>Pro tip:</strong> Claude remembers everything within a conversation. You can follow up with "make it shorter" or "make it more formal" without repeating your original request.</div>
       </div>
-      <div class="section">
-        <h2>Example use cases</h2>
+      <div class="section"><h2>Example use cases</h2>
         <div class="example"><div class="example-label">Summarize</div>"Summarize this 10-page report into 5 bullet points for an executive audience."</div>
         <div class="example"><div class="example-label">Draft</div>"Draft a project status update email for the Monday standup."</div>
         <div class="example"><div class="example-label">Analyze</div>"What are the main themes in this customer feedback survey?"</div>
         <div class="example"><div class="example-label">Brainstorm</div>"Give me 10 ideas for our Q3 team offsite."</div>
       </div>
-      <div class="section">
-        <h2>Things to keep in mind</h2>
-        <p>Claude can make mistakes. Always review important outputs before sending or publishing. Never share sensitive passwords, personal data, or confidential information beyond what your company policy allows.</p>
-      </div>
+      <div class="section"><h2>Things to keep in mind</h2><p>Claude can make mistakes. Always review important outputs before sending or publishing. Never share sensitive passwords, personal data, or confidential information beyond what your company policy allows.</p></div>
     </div>
 
     <!-- COWORK -->
     <div class="page" id="page-cowork">
-      <div class="page-header">
-        <span class="tag tag-claude">Claude</span>
-        <h1>Cowork</h1>
-        <p>Cowork is a desktop app from Anthropic that lets Claude help you with files, tasks, and workflows directly on your computer — without switching back and forth to a browser.</p>
-      </div>
-      <div class="section">
-        <h2>What Cowork does</h2>
-        <p>Cowork brings Claude to your desktop so it can see what you're working on and help you get things done. It can read files, draft content, organize information, and automate repetitive tasks — all from a persistent side panel.</p>
+      <div class="page-header"><span class="tag tag-claude">Claude</span><h1>Cowork</h1><p>Cowork is a desktop app from Anthropic that lets Claude help you with files, tasks, and workflows directly on your computer.</p></div>
+      <div class="section"><h2>What Cowork does</h2><p>Cowork brings Claude to your desktop so it can see what you're working on and help you get things done — all from a persistent side panel.</p>
         <div class="tip"><strong>Key difference from Claude Chat:</strong> Cowork works alongside your desktop applications, making it ideal for file-heavy or multi-app tasks.</div>
       </div>
-      <div class="section">
-        <h2>Common use cases</h2>
+      <div class="section"><h2>Common use cases</h2>
         <div class="card-grid">
           <div class="card"><i class="ti ti-file-text"></i><h3>Document work</h3><p>Summarize, rewrite, or extract info from local files</p></div>
           <div class="card"><i class="ti ti-checklist"></i><h3>Task management</h3><p>Organize to-do lists and manage project files</p></div>
@@ -231,59 +160,43 @@
           <div class="card"><i class="ti ti-refresh"></i><h3>Repetitive tasks</h3><p>Automate file renaming, formatting, and data cleanup</p></div>
         </div>
       </div>
-      <div class="section">
-        <h2>Getting started</h2>
+      <div class="section"><h2>Getting started</h2>
         <div class="steps">
-          <div class="step">Download and install Cowork from claude.ai/download (or your company's software portal).</div>
-          <div class="step">Sign in with your Anthropic account (or your company SSO if configured).</div>
-          <div class="step">Open the side panel and describe what you need help with. Drag and drop files into the chat to have Claude work with them.</div>
+          <div class="step">Download and install Cowork from claude.ai/download.</div>
+          <div class="step">Sign in with your Anthropic account or company SSO.</div>
+          <div class="step">Open the side panel and describe what you need. Drag and drop files into the chat to have Claude work with them.</div>
         </div>
       </div>
     </div>
 
     <!-- CODE -->
     <div class="page" id="page-code">
-      <div class="page-header">
-        <span class="tag tag-claude">Claude</span>
-        <h1>Claude Code</h1>
-        <p>Claude Code is a command-line tool that brings AI-assisted coding directly into your terminal. It's built for developers who want help writing, reviewing, and debugging code.</p>
+      <div class="page-header"><span class="tag tag-claude">Claude</span><h1>Claude Code</h1><p>Claude Code is a command-line tool that brings AI-assisted coding directly into your terminal.</p></div>
+      <div class="section"><h2>What it does</h2><p>Claude Code runs in your terminal and has direct access to your codebase. It can read files, make edits, run commands, and help you work through complex engineering tasks step by step.</p>
+        <div class="tip"><strong>Best for:</strong> Developers who prefer a terminal workflow and want Claude to work directly in their project.</div>
       </div>
-      <div class="section">
-        <h2>What it does</h2>
-        <p>Claude Code runs in your terminal and has direct access to your codebase. It can read files, make edits, run commands, and help you work through complex engineering tasks step by step.</p>
-        <div class="tip"><strong>Best for:</strong> Developers who prefer a terminal workflow and want Claude to work directly in their project — not just give advice.</div>
-      </div>
-      <div class="section">
-        <h2>Example tasks</h2>
+      <div class="section"><h2>Example tasks</h2>
         <div class="example"><div class="example-label">Write code</div>"Add a function to this file that validates email addresses."</div>
         <div class="example"><div class="example-label">Debug</div>"I'm getting a TypeError on line 42. What's wrong and how do I fix it?"</div>
         <div class="example"><div class="example-label">Refactor</div>"Refactor this class to follow the single responsibility principle."</div>
         <div class="example"><div class="example-label">Review</div>"Review this pull request and flag any security concerns."</div>
       </div>
-      <div class="section">
-        <h2>Getting started</h2>
+      <div class="section"><h2>Getting started</h2>
         <div class="steps">
-          <div class="step">Install via npm: <code style="background:var(--cream);padding:2px 6px;border-radius:4px;font-size:13px;color:var(--navy)">npm install -g @anthropic-ai/claude-code</code></div>
+          <div class="step">Install via npm: <code style="background:var(--cream);padding:2px 6px;border-radius:4px;font-size:13px">npm install -g @anthropic-ai/claude-code</code></div>
           <div class="step">Navigate to your project directory in the terminal.</div>
-          <div class="step">Run <code style="background:var(--cream);padding:2px 6px;border-radius:4px;font-size:13px;color:var(--navy)">claude</code> to start a session. Claude will read your project structure automatically.</div>
+          <div class="step">Run <code style="background:var(--cream);padding:2px 6px;border-radius:4px;font-size:13px">claude</code> to start a session.</div>
         </div>
       </div>
     </div>
 
     <!-- PROJECTS -->
     <div class="page" id="page-projects">
-      <div class="page-header">
-        <span class="tag tag-claude">Claude</span>
-        <h1>Projects</h1>
-        <p>Projects in Claude let you organize conversations, share context across chats, and collaborate with teammates — all in one place.</p>
+      <div class="page-header"><span class="tag tag-claude">Claude</span><h1>Projects</h1><p>Projects in Claude let you organize conversations, share context across chats, and collaborate with teammates — all in one place.</p></div>
+      <div class="section"><h2>What is a Project?</h2><p>A Project is a dedicated workspace in Claude that keeps related conversations, uploaded files, and custom instructions together.</p>
+        <div class="tip"><strong>Think of it like:</strong> A shared folder + a briefed assistant. Upload your docs once, set your instructions, and every conversation in that Project benefits from that context.</div>
       </div>
-      <div class="section">
-        <h2>What is a Project?</h2>
-        <p>A Project is a dedicated workspace in Claude that keeps related conversations, uploaded files, and custom instructions together. Instead of starting fresh every time, Claude remembers the context of your project.</p>
-        <div class="tip"><strong>Think of it like:</strong> A shared folder + a briefed assistant. You upload your docs once, set your instructions, and every conversation in that Project benefits from that context.</div>
-      </div>
-      <div class="section">
-        <h2>Key features</h2>
+      <div class="section"><h2>Key features</h2>
         <div class="card-grid">
           <div class="card"><i class="ti ti-file-plus"></i><h3>Upload files</h3><p>Add PDFs, docs, spreadsheets for Claude to reference</p></div>
           <div class="card"><i class="ti ti-settings"></i><h3>Custom instructions</h3><p>Tell Claude your role, tone preferences, and rules</p></div>
@@ -291,26 +204,22 @@
           <div class="card"><i class="ti ti-history"></i><h3>Persistent context</h3><p>Claude remembers project details across sessions</p></div>
         </div>
       </div>
-      <div class="section">
-        <h2>Creating a Project</h2>
+      <div class="section"><h2>Creating a Project</h2>
         <div class="steps">
           <div class="step">In Claude Chat, click "New Project" in the left sidebar.</div>
-          <div class="step">Give your project a name and write a brief description of what it's for.</div>
-          <div class="step">Upload relevant files and add custom instructions (e.g., "Always respond in formal English").</div>
-          <div class="step">Invite teammates via their email address. Start chatting!</div>
+          <div class="step">Give your project a name and write a brief description.</div>
+          <div class="step">Upload relevant files and add custom instructions.</div>
+          <div class="step">Invite teammates via their email address and start chatting!</div>
         </div>
       </div>
-      <div class="section">
-        <h2>Company example: AI &amp; Automation Intake Assistant</h2>
+      <div class="section"><h2>Company example: AI &amp; Automation Intake Assistant</h2>
         <div class="tip tip-navy"><strong>AI &amp; Automation Intake Assistant</strong> is a Takanock Claude Project built so employees can submit automation requests, get setup and procedural guidance, and ask questions — all in one place.</div>
-        <h3>What it can do</h3>
         <div class="card-grid">
           <div class="card"><i class="ti ti-forms"></i><h3>Submit requests</h3><p>Employees fill out automation requests directly through the project interface</p></div>
           <div class="card"><i class="ti ti-help-circle"></i><h3>Answer questions</h3><p>Ask procedural and setup questions and get instant answers</p></div>
-          <div class="card"><i class="ti ti-list-check"></i><h3>Triage guidance</h3><p>Explains how the automation triage process works and what to expect</p></div>
-          <div class="card"><i class="ti ti-plug"></i><h3>Connector help</h3><p>Walks you through enabling connectors like Airtable step by step</p></div>
+          <div class="card"><i class="ti ti-list-check"></i><h3>Triage guidance</h3><p>Explains how the automation triage process works</p></div>
+          <div class="card"><i class="ti ti-plug"></i><h3>Connector help</h3><p>Walks you through enabling connectors like Airtable</p></div>
         </div>
-        <h3>Example questions to ask it</h3>
         <div class="example"><div class="example-label">Setup help</div>"How do I enable the Airtable connector?"</div>
         <div class="example"><div class="example-label">Process question</div>"How does triage work for automation requests?"</div>
         <div class="example"><div class="example-label">Submit a request</div>"I want to automate our weekly reporting — where do I start?"</div>
@@ -319,26 +228,19 @@
 
     <!-- CUSTOMIZE -->
     <div class="page" id="page-customize">
-      <div class="page-header">
-        <span class="tag tag-claude">Claude</span>
-        <h1>Customize: Skills &amp; Connectors</h1>
-        <p>Claude can be connected to your apps and extended with skills to make it more powerful for your specific needs.</p>
-      </div>
-      <div class="section">
-        <h2>Key terms</h2>
+      <div class="page-header"><span class="tag tag-claude">Claude</span><h1>Customize: Skills &amp; Connectors</h1><p>Claude can be connected to your apps and extended with skills to make it more powerful for your specific needs.</p></div>
+      <div class="section"><h2>Key terms</h2>
         <div class="card-grid">
           <div class="card"><i class="ti ti-plug"></i><h3>API</h3><p>Application Programming Interface — rules that let software talk to other software. When Claude connects to Slack, Airtable, or any service, it uses that service's API.</p></div>
-          <div class="card"><i class="ti ti-puzzle"></i><h3>MCP</h3><p>Model Context Protocol — an open standard by Anthropic that gives AI a universal "plug" to connect to tools like Notion, GitHub, and Airtable without custom code per tool.</p></div>
-          <div class="card"><i class="ti ti-tool"></i><h3>SDK</h3><p>Software Development Kit — a pre-built library that makes calling an API easier. Anthropic has SDKs for Python and JavaScript so developers can call Claude in one line of code.</p></div>
+          <div class="card"><i class="ti ti-puzzle"></i><h3>MCP</h3><p>Model Context Protocol — an open standard by Anthropic giving AI a universal "plug" to connect to tools like Notion, GitHub, and Airtable without custom code.</p></div>
+          <div class="card"><i class="ti ti-tool"></i><h3>SDK</h3><p>Software Development Kit — a pre-built library that makes calling an API easier. Anthropic has SDKs for Python and JavaScript.</p></div>
           <div class="card"><i class="ti ti-braces"></i><h3>JSON</h3><p>JavaScript Object Notation — a lightweight, structured format for exchanging data between systems. Most APIs send and receive data as JSON.</p></div>
-          <div class="card"><i class="ti ti-webhook"></i><h3>Webhook</h3><p>A URL that "lights up" when triggered by an event (like a form submission). AI agents are often started by a webhook — when it's hit, the workflow begins.</p></div>
+          <div class="card"><i class="ti ti-webhook"></i><h3>Webhook</h3><p>A URL that "lights up" when triggered by an event. AI agents are often started by a webhook — when it's hit, the workflow begins.</p></div>
         </div>
       </div>
-      <div class="section">
-        <h2>Connectors</h2>
-        <p>Connectors let Claude access and act in your other tools — like reading Slack messages, searching your Google Drive, or creating Notion pages. Once connected, you can ask Claude to work across apps naturally.</p>
+      <div class="section"><h2>Connectors</h2>
+        <p>Connectors let Claude access and act in your other tools — like reading Slack messages, searching Google Drive, or creating Notion pages.</p>
         <div class="example"><div class="example-label">Example</div>"Find all emails from last week about the product launch and summarize the key decisions."</div>
-        <p>Available connectors include:</p>
         <div class="chips">
           <div class="chip"><i class="ti ti-brand-slack"></i>Slack</div>
           <div class="chip"><i class="ti ti-brand-google"></i>Google Drive</div>
@@ -350,39 +252,32 @@
           <div class="chip"><i class="ti ti-dots-circle-horizontal"></i>And more...</div>
         </div>
       </div>
-      <div class="section">
-        <h2>How to add a connector</h2>
+      <div class="section"><h2>How to add a connector</h2>
         <div class="steps">
           <div class="step">Open Claude Chat and go to Settings → Connectors.</div>
-          <div class="step">Browse available connectors and click "Connect" next to the app you want.</div>
-          <div class="step">Authorize access in the popup (you'll sign in to the third-party app).</div>
-          <div class="step">Start using it — just mention the app in your prompt and Claude will use it.</div>
+          <div class="step">Browse available connectors and click "Connect."</div>
+          <div class="step">Authorize access in the popup.</div>
+          <div class="step">Start using it — just mention the app in your prompt.</div>
         </div>
       </div>
-      <div class="section">
-        <h2>Skills &amp; preferences</h2>
-        <p>You can customize how Claude behaves by setting preferences in your profile. For example, tell it your job title, preferred writing style, or how detailed you want responses to be.</p>
-        <div class="tip"><strong>User preferences</strong> (under your profile) let you set standing instructions like: "I'm a product manager. Always be concise. Use bullet points for lists."</div>
+      <div class="section"><h2>Company example: Airtable &amp; the Intake Assistant</h2>
+        <div class="tip tip-navy"><strong>The AI &amp; Automation Intake Assistant</strong> uses the Airtable connector so Claude can access existing automation requests directly from the Airtable base — no copy-pasting needed.</div>
+        <div class="example"><div class="example-label">Example</div>"Show me all open automation requests submitted this month." → Claude reads directly from Airtable via the connector and summarizes the results.</div>
       </div>
-      <div class="section">
-        <h2>Company example: Airtable &amp; the Intake Assistant</h2>
-        <div class="tip tip-navy"><strong>The AI &amp; Automation Intake Assistant</strong> project uses the Airtable connector so Claude can access existing automation requests directly from the Airtable base — no copy-pasting needed.</div>
-        <p>When a team member asks the Intake Assistant about the status of a request or wants to review past submissions, Claude pulls the data live from Airtable through the connector. This means the project always has access to the latest information without anyone needing to manually update it.</p>
-        <div class="example"><div class="example-label">Example</div>"Show me all open automation requests submitted this month." → Claude reads directly from the Airtable base via the connector and summarizes the results.</div>
+      <div class="section"><h2>Skills &amp; preferences</h2>
+        <p>Customize how Claude behaves by setting preferences in your profile — your job title, preferred writing style, or how detailed you want responses to be.</p>
+        <div class="tip"><strong>User preferences</strong> let you set standing instructions like: "I'm a project manager. Always be concise. Use bullet points for lists."</div>
+      </div>
+      <div class="section"><h2>Company example: Invoking the Intake Assistant</h2>
+        <div class="tip tip-navy"><strong>The AI &amp; Automation Intake Assistant</strong> is available as an invokable skill — type <strong>/automation-intake</strong> directly in Claude Chat to launch it.</div>
+        <div class="example"><div class="example-label">How it connects</div>Invoking the skill → opens the AI &amp; Automation Intake Assistant project → Claude uses its custom instructions + Airtable connector to handle your request end-to-end.</div>
       </div>
     </div>
 
     <!-- AI AGENTS -->
-
     <div class="page" id="page-agents">
-      <div class="page-header">
-        <span class="tag tag-ai">AI concepts</span>
-        <h1>Building AI Agents</h1>
-        <p>AI agents go beyond answering questions — they can take actions, use tools, and complete multi-step tasks on your behalf.</p>
-      </div>
-      <div class="section">
-        <h2>What is an AI agent?</h2>
-        <p>An AI agent is an AI system that can plan and execute a series of steps to complete a goal. Unlike a simple chatbot that responds to one question at a time, an agent can:</p>
+      <div class="page-header"><span class="tag tag-ai">AI concepts</span><h1>Building AI Agents</h1><p>AI agents go beyond answering questions — they can take actions, use tools, and complete multi-step tasks on your behalf.</p></div>
+      <div class="section"><h2>What is an AI agent?</h2>
         <div class="steps">
           <div class="step">Receive a high-level goal (e.g., "research competitors and summarize findings")</div>
           <div class="step">Break it into subtasks and decide what order to do them in</div>
@@ -390,8 +285,7 @@
           <div class="step">Synthesize results and deliver a final output</div>
         </div>
       </div>
-      <div class="section">
-        <h2>When to use an agent</h2>
+      <div class="section"><h2>When to use an agent</h2>
         <table>
           <thead><tr><th>Use a chatbot when...</th><th>Use an agent when...</th></tr></thead>
           <tbody>
@@ -401,83 +295,63 @@
           </tbody>
         </table>
       </div>
-      <div class="section">
-        <h2>Key concepts</h2>
+      <div class="section"><h2>Key concepts</h2>
         <div class="card-grid">
           <div class="card"><i class="ti ti-tool"></i><h3>Tools</h3><p>Functions the agent can call: search, read files, send messages</p></div>
           <div class="card"><i class="ti ti-arrows-split-2"></i><h3>Planning</h3><p>How the agent decides what steps to take next</p></div>
           <div class="card"><i class="ti ti-refresh"></i><h3>Loops</h3><p>The agent can retry or self-correct when something fails</p></div>
           <div class="card"><i class="ti ti-eye"></i><h3>Human review</h3><p>For critical steps, agents can pause and ask for approval</p></div>
         </div>
-        <div class="tip tip-slate"><strong>Claude's agents:</strong> Claude supports agentic tasks natively — try asking it to "research X and write a report" and watch it plan and execute multiple steps.</div>
+        <div class="tip tip-slate"><strong>Claude's agents:</strong> Try asking Claude to "research X and write a report" and watch it plan and execute multiple steps automatically.</div>
       </div>
-
-      <div class="section">
-        <h2>Building your own agents</h2>
-        <p>You can build custom agents using tools like the Anthropic API, Claude Projects with connectors, or workflow automation platforms like n8n or Zapier. See the Automating Workflows module for more.</p>
-      </div>
+      <div class="section"><h2>Building your own agents</h2><p>You can build custom agents using the Anthropic API, Claude Projects with connectors, or workflow automation platforms like n8n or Zapier. See the Automating Workflows module for more.</p></div>
     </div>
 
     <!-- WORKFLOWS -->
     <div class="page" id="page-workflows">
-      <div class="page-header">
-        <span class="tag tag-ai">AI concepts</span>
-        <h1>Automating Workflows with AI</h1>
-        <p>AI can be wired into your existing tools and processes to reduce manual work, eliminate repetitive tasks, and respond faster to events.</p>
-      </div>
-      <div class="section">
-        <h2>What is workflow automation?</h2>
-        <p>Workflow automation connects apps and triggers actions automatically. Adding AI to the mix means you can handle tasks that previously required human judgment — like drafting a response, categorizing a ticket, or summarizing a document.</p>
+      <div class="page-header"><span class="tag tag-ai">AI concepts</span><h1>Automating Workflows with AI</h1><p>AI can be wired into your existing tools and processes to reduce manual work and respond faster to events.</p></div>
+      <div class="section"><h2>What is workflow automation?</h2>
+        <p>Workflow automation connects apps and triggers actions automatically. Adding AI means you can handle tasks that previously required human judgment — like drafting a response, categorizing a ticket, or summarizing a document.</p>
         <div class="tip"><strong>Example:</strong> When a new support ticket arrives → AI classifies it → assigns it to the right team → drafts a suggested reply → sends it for human review.</div>
       </div>
-      <div class="section">
-        <h2>Popular AI automation tools</h2>
+      <div class="section"><h2>Popular AI automation tools</h2>
         <div class="card-grid">
-          <div class="card"><i class="ti ti-git-merge"></i><h3>n8n</h3><p>Visual node-based workflow automation — the "plumbing" that moves data between systems. When a form is submitted, n8n sends data to an AI agent, then posts the result to Slack.</p></div>
-          <div class="card"><i class="ti ti-bolt"></i><h3>Zapier</h3><p>No-code automation connecting 6,000+ apps. Easy AI integrations and a great starting point for non-developers.</p></div>
-          <div class="card"><i class="ti ti-table"></i><h3>Airtable</h3><p>A spreadsheet-database hybrid. AI workflows use it as a source of truth — pulling records in, running them through an agent, and writing results back out.</p></div>
-          <div class="card"><i class="ti ti-brand-github"></i><h3>GitHub</h3><p>Think Google Drive for code. Stores workflow code and agent logic, tracks changes over time, and enables team collaboration and rollbacks.</p></div>
-          <div class="card"><i class="ti ti-notes"></i><h3>Notion</h3><p>All-in-one workspace for notes, docs, and databases. AI agents can read from and write to Notion — great as a "second brain" for knowledge storage.</p></div>
-          <div class="card"><i class="ti ti-brand-python"></i><h3>Anthropic API</h3><p>Direct integration for developers building custom AI workflows. Use the SDK to call Claude in one line of code instead of writing raw HTTP requests.</p></div>
+          <div class="card"><i class="ti ti-git-merge"></i><h3>n8n</h3><p>Visual node-based workflow automation — the "plumbing" that moves data between systems.</p></div>
+          <div class="card"><i class="ti ti-bolt"></i><h3>Zapier</h3><p>No-code automation connecting 6,000+ apps. Great starting point for non-developers.</p></div>
+          <div class="card"><i class="ti ti-table"></i><h3>Airtable</h3><p>A spreadsheet-database hybrid. AI workflows use it as a source of truth — pulling records in and writing results back out.</p></div>
+          <div class="card"><i class="ti ti-brand-github"></i><h3>GitHub</h3><p>Stores workflow code and agent logic, tracks changes, and enables team collaboration.</p></div>
+          <div class="card"><i class="ti ti-notes"></i><h3>Notion</h3><p>AI agents can read from and write to Notion — great as a "second brain" for knowledge storage.</p></div>
+          <div class="card"><i class="ti ti-brand-python"></i><h3>Anthropic API</h3><p>Direct integration for developers building custom AI workflows using the Claude SDK.</p></div>
         </div>
       </div>
-      <div class="section">
-        <h2>Common workflow patterns</h2>
+      <div class="section"><h2>Common workflow patterns</h2>
         <div class="example"><div class="example-label">Trigger → AI → Action</div>New form submission → Claude summarizes and categorizes it → Creates a Notion page</div>
         <div class="example"><div class="example-label">Scheduled batch</div>Every morning → AI reads overnight emails → Produces a priority summary in Slack</div>
         <div class="example"><div class="example-label">Human in the loop</div>AI drafts a contract clause → Sends to a human for review → Human approves → Auto-sends to client</div>
-        <div class="example"><div class="example-label">Example — Daily weather alert</div>Every day at 8:00 AM → n8n triggers automatically → Calls the <strong>OpenWeatherMap API</strong> to fetch current weather in Austin, TX → Formats the data → Posts a Slack notification to your chosen channel with the day's forecast. No manual steps required.</div>
+        <div class="example"><div class="example-label">Daily weather alert</div>Every day at 8:00 AM → n8n triggers automatically → Calls the <strong>OpenWeatherMap API</strong> to fetch current weather in Austin, TX → Posts a Slack notification with the day's forecast.</div>
       </div>
-      <div class="section">
-        <h2>Getting started tips</h2>
+      <div class="section"><h2>Getting started tips</h2>
         <div class="steps">
-          <div class="step">Start with a single, repetitive task you do manually every week.</div>
+          <div class="step">Start with a single repetitive task you do manually every week.</div>
           <div class="step">Map out the steps: what triggers it, what data is involved, what the output should be.</div>
           <div class="step">Build a simple version in n8n or Zapier with an AI step in the middle.</div>
           <div class="step">Test thoroughly, add error handling, and gradually hand off more to the automation.</div>
         </div>
-
       </div>
     </div>
 
-    <!-- COMPANY CORNER -->
-    <div class="page" id="page-company">
-      <div class="page-header">
-        <span class="tag tag-company">Takanock</span>
-        <h1>Company Corner</h1>
-        <p>Internal tools, approved use cases, and company-specific guidance for using AI at work.</p>
+    <!-- ASK TAKANOCK -->
+    <div class="page" id="page-asktakanock">
+      <div class="page-header"><span class="tag tag-company">Takanock</span><h1>Ask Takanock</h1><p>Your company's internal AI knowledge base, powered by Claude.</p></div>
+      <div class="section"><h2>What is Ask Takanock?</h2>
+        <div class="tip tip-navy"><strong>Ask Takanock</strong> is trained on Takanock's documents, policies, and processes so you can get fast, accurate answers without hunting through SharePoint.</div>
       </div>
-
-      <div class="section">
-        <h2>Ask Takanock</h2>
-        <div class="tip tip-navy"><strong>What is Ask Takanock?</strong> Ask Takanock is your company's internal AI knowledge base, powered by Claude. It's trained on Takanock's documents, policies, and processes so you can get fast, accurate answers without hunting through SharePoint.</div>
-        <h3>How to access it</h3>
-        <p><em style="color:var(--text-muted)">[Add your internal link or access instructions here]</em></p>
-        <h3>What to ask it</h3>
+      <div class="section"><h2>What to ask it</h2>
         <div class="example"><div class="example-label">Policy questions</div>"What is Takanock's process for securing utility agreements during site entitlement?"</div>
         <div class="example"><div class="example-label">Process questions</div>"What are the steps in TKN's load interconnection process for a new site?"</div>
         <div class="example"><div class="example-label">Project info</div>"What is the current interim power timeline and utility status for Project Tallmadge?"</div>
-        <h3>Ask Takanock vs. Claude Chat</h3>
+      </div>
+      <div class="section"><h2>Ask Takanock vs. Claude Chat</h2>
         <table>
           <thead><tr><th>Use Ask Takanock for...</th><th>Use Claude Chat for...</th></tr></thead>
           <tbody>
@@ -487,71 +361,40 @@
             <tr><td>Finding internal documents</td><td>Creative work &amp; drafting</td></tr>
           </tbody>
         </table>
-        <h3>Tips for getting good answers</h3>
+      </div>
+      <div class="section"><h2>Tips for getting good answers</h2>
         <div class="steps">
           <div class="step">Be specific — mention the department, policy name, or project if you know it.</div>
           <div class="step">If the answer doesn't look right, try rephrasing or adding more context.</div>
           <div class="step">For official decisions, always verify with the source document or your manager.</div>
         </div>
       </div>
+    </div>
 
+    <!-- AI 101 -->
+    <div class="page" id="page-ai101">
+      <div class="page-header"><span class="tag tag-company">Takanock</span><h1>AI 101: Automation Intake</h1><p>How to submit an automation request using the /automation-intake skill in Claude.</p></div>
       <div class="section">
-        <h2>AI 101: Automation Intake Walkthrough</h2>
         <p style="margin-bottom:1.5rem">Follow these steps to submit an automation request using the <strong>/automation-intake</strong> skill in Claude.</p>
-
-        <div style="display:flex;flex-direction:column;gap:1.25rem;margin-bottom:1.75rem">
-
-          <div style="background:var(--white);border:0.5px solid var(--border);border-radius:10px;border-top:3px solid var(--coral);padding:1.25rem 1.5rem;display:flex;gap:1.25rem;align-items:flex-start">
-            <div style="background:var(--coral);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0">1</div>
-            <div>
-              <div style="font-weight:600;color:var(--navy);margin-bottom:4px">Open the skills menu</div>
-              <div style="font-size:14px;color:var(--text-secondary);line-height:1.7">In Claude Chat, click the <strong>"plus" icon</strong> inside the text box to open the skills menu.</div>
-            </div>
-          </div>
-
-          <div style="background:var(--white);border:0.5px solid var(--border);border-radius:10px;border-top:3px solid var(--coral);padding:1.25rem 1.5rem;display:flex;gap:1.25rem;align-items:flex-start">
-            <div style="background:var(--coral);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0">2</div>
-            <div style="width:100%">
-              <div style="font-weight:600;color:var(--navy);margin-bottom:4px">Select the automation-intake skill</div>
-              <div style="font-size:14px;color:var(--text-secondary);line-height:1.7;margin-bottom:0.875rem">Hover over <strong>Skills</strong> and select <strong>/automation-intake</strong> from the dropdown.</div>
-              <div style="background:var(--cream);border-left:3px solid var(--slate);border-radius:0 8px 8px 0;padding:0.75rem 1rem;font-size:13px;color:var(--text-secondary);line-height:1.6">
-                <strong style="color:var(--slate)">First time?</strong> Click <strong>"Add skill"</strong> at the bottom of the dropdown → go to the <strong>"Shared"</strong> tab → find and add <strong>/automation-intake</strong>. Once installed, you can also invoke it anytime by typing <strong>/</strong> in Claude Chat.
-              </div>
-            </div>
-          </div>
-
-          <div style="background:var(--white);border:0.5px solid var(--border);border-radius:10px;border-top:3px solid var(--coral);padding:1.25rem 1.5rem;display:flex;gap:1.25rem;align-items:flex-start">
-            <div style="background:var(--coral);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0">3</div>
-            <div>
-              <div style="font-weight:600;color:var(--navy);margin-bottom:4px">Follow the intake process</div>
-              <div style="font-size:14px;color:var(--text-secondary);line-height:1.7">Once you invoke the skill, Claude will guide you through the intake process <strong>step by step</strong>. Describe your automation request in as much detail as possible — what triggers it, what systems are involved, and what the output should look like.</div>
-            </div>
-          </div>
-
-          <div style="background:var(--white);border:0.5px solid var(--border);border-radius:10px;border-top:3px solid var(--coral);padding:1.25rem 1.5rem;display:flex;gap:1.25rem;align-items:flex-start">
-            <div style="background:var(--coral);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0">4</div>
-            <div>
-              <div style="font-weight:600;color:var(--navy);margin-bottom:4px">Request submitted to Airtable</div>
-              <div style="font-size:14px;color:var(--text-secondary);line-height:1.7">Once finalized, Claude automatically sends your request to the <strong>AI Workstream Tracker</strong> in Airtable. Ivan and the AI Interns will have access to your submission and will begin building the automation.</div>
-            </div>
-          </div>
-
-        </div>
-
+        <div class="intake-step"><div class="intake-num">1</div><div><div class="intake-title">Open the skills menu</div><div class="intake-body">In Claude Chat, click the <strong>"plus" icon</strong> inside the text box to open the skills menu.</div></div></div>
+        <div class="intake-step"><div class="intake-num">2</div><div style="width:100%"><div class="intake-title">Select the automation-intake skill</div><div class="intake-body" style="margin-bottom:0.875rem">Hover over <strong>Skills</strong> and select <strong>/automation-intake</strong> from the dropdown.</div><div style="background:var(--cream);border-left:3px solid var(--slate);border-radius:0 8px 8px 0;padding:0.75rem 1rem;font-size:13px;color:var(--text-secondary);line-height:1.6"><strong style="color:var(--slate)">First time?</strong> Click <strong>"Add skill"</strong> → go to the <strong>"Shared"</strong> tab → find and add <strong>/automation-intake</strong>. Once installed, you can also invoke it anytime by typing <strong>/</strong> in Claude Chat.</div></div></div>
+        <div class="intake-step"><div class="intake-num">3</div><div><div class="intake-title">Follow the intake process</div><div class="intake-body">Claude will guide you through the process <strong>step by step</strong>. Describe your automation request in detail — what triggers it, what systems are involved, and what the output should look like.</div></div></div>
+        <div class="intake-step"><div class="intake-num">4</div><div><div class="intake-title">Request submitted to Airtable</div><div class="intake-body">Claude automatically sends your request to the <strong>AI Workstream Tracker</strong> in Airtable. Ivan and the AI Interns will have access and will begin building the automation.</div></div></div>
         <div class="tip tip-navy"><strong>The more detail the better.</strong> The clearer your request — triggers, systems involved, desired output — the faster the team can build it for you.</div>
       </div>
-
-      <div class="section">
-        <h2>Company examples</h2>
+      <div class="section"><h2>Use Cases</h2>
+        <div class="use-case"><div class="intake-num">1</div><div><div class="intake-title">Weekly project update emails</div><div class="intake-body">Automatically send a weekly email with updates pulled from a project document — no manual writing or copy-pasting required.</div></div></div>
+        <div class="use-case"><div class="intake-num">2</div><div><div class="intake-title">Streamlining document flow between sectors</div><div class="intake-body">Automate the handoff of documents between teams or departments — reducing manual steps, bottlenecks, and the risk of things falling through the cracks.</div></div></div>
+        <div class="use-case"><div class="intake-num">3</div><div><div class="intake-title">Automatically updating CRM with client information</div><div class="intake-body">Automatically capture and log client information into the CRM — keeping records up to date without manual data entry.</div></div></div>
+      </div>
+      <div class="section"><h2>Company examples</h2>
         <p style="margin-bottom:1.25rem">Here's what it looks like when you invoke the <strong>/automation-intake</strong> skill in Claude Chat:</p>
         <div style="background:var(--white);border:0.5px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:1rem">
           <div style="background:var(--navy);padding:0.6rem 1rem;font-size:12px;color:rgba(255,255,255,0.6);font-weight:500">Claude Chat — /automation-intake skill in action</div>
           <div style="padding:1.5rem;background:#F5F4F0">
-            <!-- User message -->
             <div style="display:flex;justify-content:flex-end;margin-bottom:1.25rem">
               <div style="background:var(--white);border:0.5px solid var(--border);border-radius:18px 18px 4px 18px;padding:0.6rem 1rem;font-size:14px;color:var(--text-primary);max-width:300px">/automation-intake</div>
             </div>
-            <!-- Claude response -->
             <div style="background:var(--white);border:0.5px solid var(--border);border-radius:4px 18px 18px 18px;padding:1rem 1.25rem;font-size:14px;color:var(--text-primary);max-width:520px;line-height:1.7">
               <div style="font-size:12px;color:var(--text-muted);margin-bottom:0.5rem">Reading the automation-intake skill ›</div>
               <p style="margin-bottom:0.75rem">Great, I've got everything I need. Let's get your idea into the intake repo.</p>
@@ -563,10 +406,12 @@
         </div>
         <p style="font-size:13px;color:var(--text-muted)">Once you complete the intake process, your request is automatically sent to the AI Workstream Tracker in Airtable.</p>
       </div>
+    </div>
 
-      <div class="section">
-        <h2>Questions &amp; support</h2>
-        <p style="margin-bottom:1rem">For questions, reach out to any of the following:</p>
+    <!-- QUESTIONS & SUPPORT -->
+    <div class="page" id="page-support">
+      <div class="page-header"><span class="tag tag-company">Takanock</span><h1>Questions &amp; Support</h1><p>Need help with Claude, AI tools, or submitting an automation request? Reach out to the team.</p></div>
+      <div class="section"><h2>Contact us</h2>
         <div class="card-grid">
           <div class="card"><i class="ti ti-user"></i><h3>Ivan Benavides</h3><p><a href="mailto:Ibenavides@takanock.com" style="color:var(--coral);text-decoration:none">Ibenavides@takanock.com</a></p></div>
           <div class="card"><i class="ti ti-user"></i><h3>Ivy McConarty</h3><p><em style="font-size:12px;color:var(--text-muted)">AI Intern</em><br><a href="mailto:Imcconarty@takanock.com" style="color:var(--coral);text-decoration:none">Imcconarty@takanock.com</a></p></div>
@@ -579,17 +424,17 @@
 </div>
 
 <script>
-function showPage(id,el){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  document.getElementById('page-'+id).classList.add('active');
-  el.classList.add('active');
-  window.scrollTo(0,0);
-}
-function showPageById(id){
-  const el=document.querySelector(`.nav-item[onclick="showPage('${id}',this)"]`);
-  if(el) showPage(id,el);
-}
+  function getNavItem(id) {
+    return document.querySelector('.nav-item[onclick*="\''+id+'\'"]');
+  }
+  function showPage(id, el) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    const page = document.getElementById('page-' + id);
+    if (page) page.classList.add('active');
+    if (el) el.classList.add('active');
+    window.scrollTo(0, 0);
+  }
 </script>
 </body>
 </html>
