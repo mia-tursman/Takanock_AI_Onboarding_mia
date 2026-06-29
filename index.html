@@ -101,7 +101,7 @@
     <div class="nav-section-label">Takanock Resources</div>
     <div class="nav-item" onclick="showPage('asktakanock',this)"><i class="ti ti-message-chatbot"></i> Ask Takanock</div>
     <div class="nav-item" onclick="showPage('ai101',this)"><i class="ti ti-clipboard-list"></i> AI 101: Automation Intake</div>
-    <div class="nav-item" onclick="showPage('support',this)"><i class="ti ti-headset"></i> Questions &amp; Support</div>
+    <div class="nav-item" onclick="showPage('skills',this)"><i class="ti ti-sparkles"></i> Company Skills</div>
   </nav>
 
   <main>
@@ -120,14 +120,23 @@
         <div class="card" onclick="showPage('customize',getNavItem('customize'))"><i class="ti ti-adjustments"></i><h3>Customize</h3><p>Skills, connectors &amp; preferences</p></div>
         <div class="card" onclick="showPage('agents',getNavItem('agents'))"><i class="ti ti-robot"></i><h3>AI Agents</h3><p>Autonomous multi-step AI tasks</p></div>
         <div class="card" onclick="showPage('workflows',getNavItem('workflows'))"><i class="ti ti-git-branch"></i><h3>Workflows</h3><p>Automate with AI tools</p></div>
-        <div class="card" onclick="showPage('asktakanock',getNavItem('asktakanock'))"><i class="ti ti-building"></i><h3>Takanock Resources</h3><p>Internal tools &amp; examples</p></div>
+
+      </div>
+      <div style="margin-bottom:2rem">
+        <h2 style="font-size:14px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.75rem">Takanock Resources</h2>
+        <div class="card-grid">
+          <div class="card" onclick="showPage('asktakanock',getNavItem('asktakanock'))"><i class="ti ti-message-chatbot"></i><h3>Ask Takanock</h3><p>Your internal AI knowledge base</p></div>
+          <div class="card" onclick="showPage('skills',getNavItem('skills'))"><i class="ti ti-sparkles"></i><h3>Company Skills</h3><p>Takanock-specific Claude skills</p></div>
+          <div class="card" onclick="showPage('ai101',getNavItem('ai101'))"><i class="ti ti-clipboard-list"></i><h3>AI 101: Automation Intake</h3><p>Submit an automation request</p></div>
+          <div class="card" onclick="showPage('support',getNavItem('support'))"><i class="ti ti-headset"></i><h3>Questions &amp; Support</h3><p>Reach out to the AI team</p></div>
+        </div>
       </div>
     </div>
 
     <!-- CLAUDE CHAT -->
     <div class="page" id="page-chat">
       <div class="page-header"><span class="tag tag-claude">Claude</span><h1>Introduction to Claude Chat</h1><p>Claude Chat is your AI assistant for writing, research, analysis, brainstorming, and more.</p></div>
-      <div class="section"><h2>What is Claude?</h2><p>Claude is an AI assistant made by Anthropic. You can have natural conversations with it, ask questions, get feedback on documents, draft emails, summarize content, and much more. Claude is available via claude.ai in your browser, the Claude mobile app, and through integrations your company may have set up.</p></div>
+      <div class="section"><h2>What is Claude?</h2>        <p>Claude is an AI assistant made by Anthropic. You can have natural conversations with it, ask questions, get feedback on documents, draft emails, summarize content, and much more. Access Claude through the desktop app.</p></div>
       <div class="section"><h2>How to write a good prompt</h2>
         <div class="steps">
           <div class="step">Be specific. Instead of "write an email," try "write a short follow-up email to a client after a sales demo."</div>
@@ -220,9 +229,7 @@
           <div class="card"><i class="ti ti-list-check"></i><h3>Triage guidance</h3><p>Explains how the automation triage process works</p></div>
           <div class="card"><i class="ti ti-plug"></i><h3>Connector help</h3><p>Walks you through enabling connectors like Airtable</p></div>
         </div>
-        <div class="example"><div class="example-label">Setup help</div>"How do I enable the Airtable connector?"</div>
-        <div class="example"><div class="example-label">Process question</div>"How does triage work for automation requests?"</div>
-        <div class="example"><div class="example-label">Submit a request</div>"I want to automate our weekly reporting — where do I start?"</div>
+
       </div>
     </div>
 
@@ -260,18 +267,16 @@
           <div class="step">Start using it — just mention the app in your prompt.</div>
         </div>
       </div>
-      <div class="section"><h2>Company example: Airtable &amp; the Intake Assistant</h2>
-        <div class="tip tip-navy"><strong>The AI &amp; Automation Intake Assistant</strong> uses the Airtable connector so Claude can access existing automation requests directly from the Airtable base — no copy-pasting needed.</div>
-        <div class="example"><div class="example-label">Example</div>"Show me all open automation requests submitted this month." → Claude reads directly from Airtable via the connector and summarizes the results.</div>
+      <div class="section"><h2>Company example: Takanock-Project Connector</h2>
+        <div class="tip tip-navy"><strong>Takanock-project</strong> is a custom MCP connector that gives Claude direct access to your Microsoft Project / P6 schedule data. It powers skills like /schedule-slide and /deck-unify.</div>
+        <div class="example"><div class="example-label">Example</div>"Show me the current schedule for Project Tallmadge." → Claude connects via the takanock-project MCP connector and pulls live data directly from the project file.</div>
       </div>
       <div class="section"><h2>Skills &amp; preferences</h2>
         <p>Customize how Claude behaves by setting preferences in your profile — your job title, preferred writing style, or how detailed you want responses to be.</p>
         <div class="tip"><strong>User preferences</strong> let you set standing instructions like: "I'm a project manager. Always be concise. Use bullet points for lists."</div>
+        <div class="tip tip-navy"><strong>Looking for Takanock skills?</strong> Head to the <strong>Company Skills</strong> tab under Takanock Resources in the sidebar to see all available skills including /automation-intake, /schedule-slide, and /deck-unify.</div>
       </div>
-      <div class="section"><h2>Company example: Invoking the Intake Assistant</h2>
-        <div class="tip tip-navy"><strong>The AI &amp; Automation Intake Assistant</strong> is available as an invokable skill — type <strong>/automation-intake</strong> directly in Claude Chat to launch it.</div>
-        <div class="example"><div class="example-label">How it connects</div>Invoking the skill → opens the AI &amp; Automation Intake Assistant project → Claude uses its custom instructions + Airtable connector to handle your request end-to-end.</div>
-      </div>
+
     </div>
 
     <!-- AI AGENTS -->
@@ -408,7 +413,45 @@
       </div>
     </div>
 
-    <!-- QUESTIONS & SUPPORT -->
+    <!-- COMPANY SKILLS -->
+    <div class="page" id="page-skills">
+      <div class="page-header"><span class="tag tag-company">Takanock</span><h1>Company Skills</h1><p>Takanock-specific Claude skills available to all employees. Invoke them directly in Claude Chat by typing the skill name.</p></div>
+      <div class="section"><h2>/automation-intake</h2>
+        <div class="tip tip-navy"><strong>/automation-intake</strong> walks you through submitting an automation request to the AI team step by step. Once complete, your request is automatically sent to the AI Workstream Tracker in Airtable where Ivan and the AI Interns will begin building it.</div>
+        <h3>How to invoke it</h3>
+        <div class="steps">
+          <div class="step">Click the <strong>"plus" icon</strong> in the Claude Chat text box → hover over Skills → select <strong>/automation-intake</strong>.</div>
+          <div class="step">First time? Click <strong>"Add skill"</strong> → go to the <strong>"Shared"</strong> tab → find and add /automation-intake.</div>
+          <div class="step">Claude will guide you through the intake process step by step. The more detail you provide, the faster the team can build it.</div>
+        </div>
+        <div class="example"><div class="example-label">Full walkthrough</div>See the <strong>AI 101: Automation Intake</strong> tab under Takanock Resources for the complete step-by-step guide.</div>
+      </div>
+      <div class="section"><h2>/schedule-slide</h2>
+        <div class="tip tip-navy"><strong>/schedule-slide</strong> pulls live schedule data from your project file and builds or refreshes a schedule slide in PowerPoint — no copy-pasting or manual re-keying. Your deck stays in sync with the actual project file.</div>
+        <h3>Two modes</h3>
+        <div class="card-grid">
+          <div class="card"><i class="ti ti-layout-grid-add"></i><h3>BUILD</h3><p>Generate a brand new schedule table from your project file. Use this when no schedule slide exists yet.</p></div>
+          <div class="card"><i class="ti ti-refresh"></i><h3>REFRESH</h3><p>Update an existing schedule slide's cells from the live project file. Only stale cells change — all formatting and hand-tweaked layout survives.</p></div>
+        </div>
+        <h3>When to use it</h3>
+        <div class="example"><div class="example-label">Use it when</div>You want a PowerPoint slide to reflect the current Microsoft Project / P6 schedule — either building a new one or refreshing an existing one.</div>
+        <div class="example"><div class="example-label">Don't use it for</div>Redesigning a deck, writing narrative slides, or applying a brand template. Copying values from a master deck (use /deck-unify instead).</div>
+      </div>
+      <div class="section"><h2>/deck-unify</h2>
+        <div class="tip tip-navy"><strong>/deck-unify</strong> copies specific values — dates, figures, status, table cells — from a master deck into a branch deck, and changes nothing else. One-way only: master → branch.</div>
+        <h3>What it prevents</h3>
+        <p>Stops the model from "getting creative" — rewriting boilerplate, restyling, or pulling in slides the branch deliberately dropped. Only explicitly designated fields are ever touched.</p>
+        <h3>When to use it</h3>
+        <div class="example"><div class="example-label">Use it when</div>You want to refresh specific stale values in a branch or derived deck from a master deck — without touching layout, formatting, or which slides exist.</div>
+        <div class="example"><div class="example-label">Don't use it for</div>Authoring new slides, restructuring a deck, or freely rewriting content.</div>
+        <h3>What you need</h3>
+        <div class="steps">
+          <div class="step">The branch deck (.pptx) to update — usually the open file.</div>
+          <div class="step">The master deck (.pptx) with the authoritative values. If not provided, the skill will ask for it.</div>
+          <div class="step">The skill will show you a full plan of every change before writing anything — nothing is applied until you approve.</div>
+        </div>
+      </div>
+    </div>
     <div class="page" id="page-support">
       <div class="page-header"><span class="tag tag-company">Takanock</span><h1>Questions &amp; Support</h1><p>Need help with Claude, AI tools, or submitting an automation request? Reach out to the team.</p></div>
       <div class="section"><h2>Contact us</h2>
