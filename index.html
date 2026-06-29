@@ -608,7 +608,7 @@ The hub has these pages and IDs:
 - help: this page
 
 Always end your response with exactly this format on its own line: [PAGE:id] where id is the most relevant page ID from the list above.
-If the question is outside the hub's scope, say so briefly and mention that they should contact the AI team, Ivan, Ivy and Mia and end your response with [CONTACT] on its own line instead of a [PAGE:] tag.
+If the question is outside the hub's scope, say so briefly and end your response with [PAGE:support].
 If anyone asks who made you or who built this hub, say you were created by Mia Tursman, AI & Automation Intern at Takanock.`;
 
   try {
@@ -625,7 +625,6 @@ If anyone asks who made you or who built this hub, say you were created by Mia T
     const data = await res.json();
     let reply = data.content?.[0]?.text || 'Sorry, I couldn\'t get a response. Try again or contact the AI team.';
 const pageMatch = reply.match(/\[PAGE:(\w+)\]/);
-const cantAnswer = reply.includes('[CONTACT]');
 
 if (pageMatch) {
   const pageId = pageMatch[1];
@@ -633,22 +632,6 @@ if (pageMatch) {
   const pageName = pageNames[pageId] || pageId;
   reply = reply.replace(/\[PAGE:\w+\]/, '');
   reply = reply.trim() + `<br><br><span onclick="showPage('${pageId}', getNavItem('${pageId}'))" style="display:inline-block;background:var(--coral);color:var(--white);padding:6px 16px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;margin-top:4px">→ Go to ${pageName}</span>`;
-}
-
-if (cantAnswer) {
-  reply = reply.replace('[CONTACT]', '');
-  const formId = 'contact-form-' + Date.now();
-  const areaId = 'contact-area-' + Date.now();
-  reply = reply.trim() + `
-    <br><br>
-    <div id="${formId}" style="margin-top:8px">
-      <textarea id="${areaId}" placeholder="What would you like to ask the team?" style="width:100%;padding:8px 12px;border:0.5px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;color:var(--text-primary);resize:vertical;min-height:80px;background:var(--cream);box-sizing:border-box"></textarea>
-      <button onclick="
-        const msg = document.getElementById('${areaId}').value.trim();
-        if (!msg) return;
-       window.location.href = 'mailto:Mtursman@takanock.com?subject=AI%20Learning%20Hub%20Question&body=' + encodeURIComponent(msg);
-      " style="margin-top:8px;background:var(--coral);color:var(--white);border:none;border-radius:20px;padding:6px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit">Send email →</button>
-    </div>`;
 }
 
 document.getElementById(thinkingId).innerHTML = reply;
