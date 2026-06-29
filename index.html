@@ -646,7 +646,7 @@ if (cantAnswer) {
       <button onclick="
         const msg = document.getElementById('${areaId}').value.trim();
         if (!msg) return;
-        window.location.href = 'mailto:Mtursman@takanock.com&subject=AI%20Learning%20Hub%20Question&body=' + encodeURIComponent(msg);
+       window.location.href = 'mailto:Mtursman@takanock.com?subject=AI%20Learning%20Hub%20Question&body=' + encodeURIComponent(msg);
       " style="margin-top:8px;background:var(--coral);color:var(--white);border:none;border-radius:20px;padding:6px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit">Send email →</button>
     </div>`;
 }
