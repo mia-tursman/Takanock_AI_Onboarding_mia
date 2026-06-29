@@ -76,14 +76,28 @@
   .intake-title{font-weight:600;color:var(--navy);margin-bottom:4px}
   .intake-body{font-size:14px;color:var(--text-secondary);line-height:1.7}
   .use-case{background:var(--white);border:0.5px solid var(--border);border-radius:10px;border-left:4px solid var(--coral);padding:1.25rem 1.5rem;display:flex;gap:1.25rem;align-items:flex-start;margin-bottom:1rem}
+  .hamburger{display:none;background:none;border:none;cursor:pointer;padding:4px;margin-left:auto}
+  .hamburger i{font-size:24px;color:var(--white)}
+  .nav-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:90}
+  @media(max-width:680px){
+    .hamburger{display:block}
+    nav{position:fixed;left:-var(--sidebar-w);top:var(--top-h);height:calc(100vh - var(--top-h));z-index:95;transform:translateX(-100%);transition:transform 0.2s ease}
+    nav.open{transform:translateX(0)}
+    .nav-overlay.open{display:block}
+    main{padding:1.25rem}
+}
 </style>
 </head>
 <body>
 <header>
   <div class="logo"><i class="ti ti-sparkles"></i><span><span class="logo-brand">takanock</span> AI Learning Hub</span></div>
   <span class="header-sub">Your guide to Claude &amp; AI tools</span>
+ <button class="hamburger" onclick="toggleNav()" aria-label="Toggle navigation">
+  <i class="ti ti-menu-2"></i>
+</button>
 </header>
 <div class="layout">
+ <div class="nav-overlay" id="nav-overlay" onclick="toggleNav()"></div>
   <nav>
     <div class="nav-section-label">Start here</div>
     <div class="nav-item active" onclick="showPage('home',this)"><i class="ti ti-home"></i> Home</div>
@@ -526,6 +540,8 @@
     return document.querySelector('.nav-item[onclick*="\''+id+'\'"]');
   }
   function showPage(id, el) {
+    document.querySelector('nav').classList.remove('open');
+    document.getElementById('nav-overlay').classList.remove('open');
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     const page = document.getElementById('page-' + id);
@@ -533,6 +549,10 @@
     if (el) el.classList.add('active');
     window.scrollTo(0, 0);
   }
+ function toggleNav() {
+  document.querySelector('nav').classList.toggle('open');
+  document.getElementById('nav-overlay').classList.toggle('open');
+}
 </script>
 </body>
 </html>
