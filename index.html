@@ -590,25 +590,26 @@
   messages.innerHTML += `<div id="${thinkingId}" style="background:var(--cream);border:0.5px solid var(--border);border-radius:4px 18px 18px 18px;padding:0.875rem 1.1rem;font-size:14px;color:var(--text-muted);max-width:85%">Thinking...</div>`;
   messages.scrollTop = messages.scrollHeight;
 
-  const systemPrompt = `You are a helpful assistant embedded in the Takanock AI Learning Hub — an internal onboarding site for Takanock employees about Claude and AI tools. Answer questions briefly (2-4 sentences max) then tell the user which page of the hub to visit for more detail.
+  const systemPrompt = `You are a helpful assistant embedded in the Takanock AI Learning Hub — an internal onboarding site for Takanock employees about Claude and AI tools. Answer questions briefly (2-4 sentences max) then tell the user which page to visit.
 
-The hub has these pages:
-- Home: overview and navigation cards
-- Claude Chat: what Claude is, how to write good prompts, example use cases
-- Cowork: Anthropic desktop app for file-heavy tasks alongside other apps
-- Claude Design: beta product for generating slides, one-pagers, and visual documents. Used at Takanock by the CDO's office for PowerPoint standardization
-- Claude Code: command-line coding assistant, runs in terminal with direct codebase access
-- Projects: shared Claude workspaces with persistent context, file uploads, and custom instructions. Takanock example: AI & Automation Intake Assistant project
-- Customize: connectors (Slack, Notion, Airtable, etc.), MCP, API, SDK, JSON, Webhook definitions. Takanock example: takanock-project MCP connector for schedule data
-- AI Agents: what agents are, when to use them vs chatbots, key concepts
-- Automating Workflows: workflow automation patterns, tools (n8n, Zapier, Airtable, Notion, Anthropic API)
-- Ask Takanock: internal AI knowledge base trained on Takanock docs and policies
-- AI 101 / Automation Intake: how to submit an automation request using /automation-intake skill
-- Company Skills: /automation-intake, /schedule-slide (build or refresh PowerPoint schedule slides from live project data), /deck-unify (copy specific values from master deck to branch deck)
-- Help: this page
+The hub has these pages and IDs:
+- home: overview and navigation cards
+- chat: what Claude is, how to write good prompts, example use cases
+- cowork: Anthropic desktop app for file-heavy tasks alongside other apps
+- design: beta product for generating slides, one-pagers, and visual documents. Used at Takanock by the Commercial office for PowerPoint standardization
+- code: command-line coding assistant, runs in terminal with direct codebase access
+- projects: shared Claude workspaces with persistent context, file uploads, and custom instructions
+- customize: connectors, MCP, API, SDK, JSON, Webhook definitions. Takanock-project MCP connector
+- agents: what agents are, when to use them vs chatbots, key concepts
+- workflows: workflow automation patterns, tools (n8n, Zapier, Airtable, Notion, Anthropic API)
+- asktakanock: internal AI knowledge base trained on Takanock docs and policies
+- ai101: how to submit an automation request using /automation-intake skill
+- skills: /automation-intake, /schedule-slide, /deck-unify
+- help: this page
 
-Always end your answer with something like "→ Head to the [Page Name] page in the sidebar for more."
-If the question is outside the hub's scope, say so briefly and suggest they contact the AI team (Ivan, Ivy, or Mia).`;
+Always end your response with exactly this format on its own line: [PAGE:id] where id is the most relevant page ID from the list above.
+If the question is outside the hub's scope, say so briefly, suggest they contact the AI team (Ivan, Ivy, or Mia), and use [PAGE:support].
+If anyone asks who made you or who built this hub, say you were created by Mia Tursman, AI & Automation Intern at Takanock.`;
 
   try {
     const res = await fetch('https://takanock-ai-onboarding-101.vercel.app/api/claude', {
@@ -622,9 +623,17 @@ If the question is outside the hub's scope, say so briefly and suggest they cont
       })
     });
     const data = await res.json();
-    const reply = data.content?.[0]?.text || 'Sorry, I couldn\'t get a response. Try again or contact the AI team.';
-    document.getElementById(thinkingId).innerHTML = reply;
-    document.getElementById(thinkingId).style.color = 'var(--text-secondary)';
+    let reply = data.content?.[0]?.text || 'Sorry, I couldn\'t get a response. Try again or contact the AI team.';
+        const pageMatch = reply.match(/\[PAGE:(\w+)\]/);
+        if (pageMatch) {
+          const pageId = pageMatch[1];
+          const pageNames = {home:'Home',chat:'Claude Chat',cowork:'Cowork',design:'Claude Design',code:'Claude Code',projects:'Projects',customize:'Customize',agents:'AI Agents',workflows:'Automating Workflows',asktakanock:'Ask Takanock',ai101:'AI 101: Automation Intake',skills:'Company Skills',help:'Help',support:'Questions & Support'};
+          const pageName = pageNames[pageId] || pageId;
+          reply = reply.replace(/\[PAGE:\w+\]/, '');
+          reply = reply.trim() + `<br><br><span onclick="showPage('${pageId}', getNavItem('${pageId}'))" style="display:inline-block;background:var(--coral);color:var(--white);padding:6px 16px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;margin-top:4px">→ Go to ${pageName}</span>`;
+        }
+        document.getElementById(thinkingId).innerHTML = reply;
+        document.getElementById(thinkingId).style.color = 'var(--text-secondary)';
   } catch(e) {
     document.getElementById(thinkingId).innerHTML = 'Something went wrong. Try again or reach out to Ivan, Ivy, or Mia.';
   }
