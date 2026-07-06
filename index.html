@@ -107,6 +107,8 @@
     <div class="nav-item" onclick="showPage('cowork',this)"><i class="ti ti-users"></i> Cowork</div>
     <div class="nav-item" onclick="showPage('code',this)"><i class="ti ti-code"></i> Claude Code</div>
     <div class="nav-item" onclick="showPage('design',this)"><i class="ti ti-palette"></i> Claude Design</div>
+   <div class="nav-item" onclick="showPage('chat',this)"><i class="ti ti-message-circle"></i> Claude Chat</div>
+   <div class="nav-item" onclick="showPage('models',this)"><i class="ti ti-cpu"></i> Claude Models</div>
     <div class="nav-item" onclick="showPage('projects',this)"><i class="ti ti-folder"></i> Projects</div>
     <div class="nav-item" onclick="showPage('customize',this)"><i class="ti ti-adjustments"></i> Customize</div>
 
@@ -133,7 +135,9 @@
         <div class="card" onclick="showPage('chat',getNavItem('chat'))"><i class="ti ti-message-circle"></i><h3>Claude Chat</h3><p>Prompting basics and tips</p></div>
         <div class="card" onclick="showPage('cowork',getNavItem('cowork'))"><i class="ti ti-users"></i><h3>Cowork</h3><p>Collaborate with AI on your desktop</p></div>
         <div class="card" onclick="showPage('code',getNavItem('code'))"><i class="ti ti-code"></i><h3>Claude Code</h3><p>AI-powered coding assistant</p></div>
-        <div class="card" onclick="showPage('design',getNavItem('design'))"><i class="ti ti-palette"></i><h3>Claude Design</h3><p>AI-powered presentations &amp; documents</p></div>
+        <div class="card" onclick="showPage('design',getNavItem('design'))"><i class="ti ti-palette"></i><h3>Claude Design</h3><p>AI-powered designs, presentation &amp; documents</p></div>
+       <div class="card" onclick="showPage('chat',getNavItem('chat'))"><i class="ti ti-message-circle"></i><h3>Claude Chat</h3><p>Prompting basics and tips</p></div>
+       <div class="card" onclick="showPage('models',getNavItem('models'))"><i class="ti ti-cpu"></i><h3>Claude Models</h3><p>Which model to use, and when</p></div>
         <div class="card" onclick="showPage('projects',getNavItem('projects'))"><i class="ti ti-folder"></i><h3>Projects</h3><p>Organize and share your AI work</p></div>
         <div class="card" onclick="showPage('customize',getNavItem('customize'))"><i class="ti ti-adjustments"></i><h3>Customize</h3><p>Skills, connectors &amp; preferences</p></div>
         <div class="card" onclick="showPage('agents',getNavItem('agents'))"><i class="ti ti-robot"></i><h3>AI Agents</h3><p>Autonomous multi-step AI tasks</p></div>
@@ -268,6 +272,35 @@
   <div class="section"><h2>Things to keep in mind</h2>
     <p>Claude Design is a beta product — outputs may need polishing before they're client-ready. Always review slide content for accuracy, especially if Claude is working from a document you uploaded. For official Takanock presentations, use the <strong>Takanock slides skill</strong> in Claude Chat to ensure the correct template and branding are applied.</p>
   </div>
+</div>
+   <!-- CLAUDE MODELS -->
+<div class="page" id="page-models">
+  <div class="page-header"><span class="tag tag-claude">Claude</span><h1>Choosing a Claude Model</h1><p>Claude comes in a few different models. Here's a quick guide to which one to use and when.</p></div>
+  <div class="section"><h2>What are Claude models?</h2>
+    <p>Claude isn't one single AI — it's a family of models, each built for a different balance of speed, depth, and cost. Anthropic names them Haiku, Sonnet, Opus, and Fable, roughly in order of how much "thinking" each one does.</p>
+    <div class="tip"><strong>The good news:</strong> you don't need to think about this most of the time. Claude picks a smart default, and switching models costs you nothing extra on your Takanock seat — it just uses your usage allowance a little faster on the bigger models.</div>
+  </div>
+  <div class="section"><h2>The lineup</h2>
+    <div class="card-grid">
+      <div class="card"><i class="ti ti-bolt"></i><h3>Haiku</h3><p>Fast and lightweight. Best for quick answers, simple summaries, or instant replies.</p></div>
+      <div class="card"><i class="ti ti-message-circle"></i><h3>Sonnet — Takanock's default</h3><p>The daily driver. Handles writing, analysis, coding, research, and most day-to-day work well.</p></div>
+      <div class="card"><i class="ti ti-brain"></i><h3>Opus</h3><p>A reasoning specialist for genuinely hard, multi-step, or high-stakes work.</p></div>
+      <div class="card"><i class="ti ti-sparkles"></i><h3>Fable</h3><p>Anthropic's most capable model, for your biggest or most complex projects.</p></div>
+    </div>
+    <div class="tip tip-navy"><strong>As of July 2026,</strong> Sonnet 5 is the default model at Takanock. If you haven't touched the model picker, this is what you're using — and that's the right call for almost everything you do.</div>
+  </div>
+  <div class="section"><h2>When to switch</h2>
+    <table>
+      <thead><tr><th>Situation</th><th>Try</th></tr></thead>
+      <tbody>
+        <tr><td>Quick Slack reply, fast summary</td><td>Haiku</td></tr>
+        <tr><td>Everyday writing, coding, analysis</td><td>Sonnet (default — no action needed)</td></tr>
+        <tr><td>Complex analysis, high-stakes review, cross-department synthesis</td><td>Opus</td></tr>
+        <tr><td>A large, open-ended project spanning many sources</td><td>Fable</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="section"><h2>Things to keep in mind</h2><p>You can change models anytime from the model picker in Claude Chat — there's no penalty for experimenting. If you're not sure, leave it on Sonnet. It's the default for a reason, and it's rare that a task at Takanock will outgrow it.</p></div>
 </div>
     <!-- PROJECTS -->
     <div class="page" id="page-projects">
@@ -598,6 +631,7 @@ The hub has these pages and IDs:
 - cowork: Anthropic desktop app for file-heavy tasks alongside other apps
 - design: beta product for generating slides, one-pagers, and visual documents. Used at Takanock by the Commercial office for PowerPoint standardization
 - code: command-line coding assistant, runs in terminal with direct codebase access
+- models: overview of Haiku, Sonnet, Opus, and Fable, and which to use when; Sonnet 5 is Takanock's default model
 - projects: shared Claude workspaces with persistent context, file uploads, and custom instructions
 - customize: connectors, MCP, API, SDK, JSON, Webhook definitions. Takanock-project MCP connector
 - agents: what agents are, when to use them vs chatbots, key concepts
@@ -629,7 +663,7 @@ const pageMatch = reply.match(/\[PAGE:(\w+)\]/);
 
 if (pageMatch) {
   const pageId = pageMatch[1];
-  const pageNames = {home:'Home',chat:'Claude Chat',cowork:'Cowork',design:'Claude Design',code:'Claude Code',projects:'Projects',customize:'Customize',agents:'AI Agents',workflows:'Automating Workflows',asktakanock:'Ask Takanock',ai101:'AI 101: Automation Intake',skills:'Company Skills',help:'Help',support:'Questions & Support'};
+  const pageNames = {home:'Home',chat:'Claude Chat',models:'Claude Models',cowork:'Cowork',design:'Claude Design',code:'Claude Code',projects:'Projects',customize:'Customize',agents:'AI Agents',workflows:'Automating Workflows',asktakanock:'Ask Takanock',ai101:'AI 101: Automation Intake',skills:'Company Skills',help:'Help',support:'Questions & Support'};
   const pageName = pageNames[pageId] || pageId;
   reply = reply.replace(/\[PAGE:\w+\]/, '');
   reply = reply.trim() + `<br><br><span onclick="showPage('${pageId}', getNavItem('${pageId}'))" style="display:inline-block;background:var(--coral);color:var(--white);padding:6px 16px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;margin-top:4px">→ Go to ${pageName}</span>`;
