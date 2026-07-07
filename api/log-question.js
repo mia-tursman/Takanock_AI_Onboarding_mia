@@ -25,12 +25,17 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
         max_tokens: 40,
-        system: 'You normalize user questions into a short canonical topic (5-8 words, title case, no punctuation) so similar phrasings map to the same string. Example: "how do i download cowork" and "where do i get cowork" should both become "How To Install Cowork". Respond with ONLY the canonical topic, nothing else.',
+        system: 'You normalize user questions into a short canonical topic (5-8 words, title case, no punctuation) so similar phrasings map to the same string. Example: "how do i download cowork" and "where do i get cowork" should both become "How To Install Cowork". If the input is NOT a genuine question or help request — greetings like "hello", small talk, "thanks", "test", or anything with no real informational content — respond with exactly: SKIP. Otherwise respond with ONLY the canonical topic, nothing else.',
         messages: [{ role: 'user', content: question }]
       })
     });
     const normData = await normRes.json();
     const canonical = (normData.content?.[0]?.text || question).trim().slice(0, 120);
+
+    // Skip non-questions (greetings, small talk, etc.) — don't write them to Airtable
+    if (canonical.toUpperCase() === 'SKIP') {
+      return res.status(200).json({ skipped: true });
+    }
 
     // Step 2: look for an existing record with this canonical topic
     const escaped = canonical.replace(/'/g, "\\'");
