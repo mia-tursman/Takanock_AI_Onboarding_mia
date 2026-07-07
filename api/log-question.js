@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { question } = req.body;
+  const { question, answer } = req.body;
   if (!question || !question.trim()) return res.status(400).json({ error: 'Missing question' });
 
   const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
@@ -57,7 +57,7 @@ export default async function handler(req, res) {
       const updateRes = await fetch(`${airtableUrl}/${existing.id}`, {
         method: 'PATCH',
         headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ fields: { Count: newCount, 'Is FAQ': newCount >= 3, 'Last Asked': today } })
+        body: JSON.stringify({ fields: { Count: newCount, 'Is FAQ': newCount >= 3, 'Last Asked': today, Answer: answer } })
       });
       if (!updateRes.ok) {
         const detail = await updateRes.text();
@@ -69,7 +69,7 @@ export default async function handler(req, res) {
       const createRes = await fetch(airtableUrl, {
         method: 'POST',
         headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ fields: { Question: canonical, Count: 1, 'Is FAQ': false, 'Last Asked': today } })
+        body: JSON.stringify({ fields: { Question: canonical, Count: 1, 'Is FAQ': false, 'Last Asked': today, Answer: answer } })
       });
       if (!createRes.ok) {
         const detail = await createRes.text();

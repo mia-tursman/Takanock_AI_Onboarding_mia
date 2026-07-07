@@ -654,15 +654,24 @@
       }
       list.innerHTML = '';
       faqs.forEach(f => {
-        const item = document.createElement('div');
-        item.textContent = f.question;
-        item.style.cssText = 'background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:0.75rem 1rem;font-size:14px;color:var(--text-primary);cursor:pointer';
-        item.onclick = () => {
-          const input = document.getElementById('help-input');
-          input.value = f.question;
-          input.focus();
+        const card = document.createElement('div');
+        card.style.cssText = 'background:var(--white);border:0.5px solid var(--border);border-radius:10px;overflow:hidden';
+
+        const question = document.createElement('div');
+        question.textContent = f.question;
+        question.style.cssText = 'padding:0.75rem 1rem;font-size:14px;color:var(--text-primary);cursor:pointer';
+
+        const answer = document.createElement('div');
+        answer.textContent = f.answer || 'No answer recorded yet.';
+        answer.style.cssText = 'display:none;padding:0 1rem 0.75rem;font-size:13px;line-height:1.6;color:var(--text-secondary);border-top:0.5px solid var(--border);padding-top:0.75rem';
+
+        question.onclick = () => {
+          answer.style.display = answer.style.display === 'none' ? 'block' : 'none';
         };
-        list.appendChild(item);
+
+        card.appendChild(question);
+        card.appendChild(answer);
+        list.appendChild(card);
       });
     } catch (e) {
       list.innerHTML = `<p style="font-size:13px;color:var(--text-muted);margin:0">Couldn't load FAQs right now.</p>`;
@@ -680,13 +689,6 @@
 
   // User bubble
   messages.innerHTML += `<div style="background:var(--navy);color:rgba(255,255,255,0.85);border-radius:18px 18px 4px 18px;padding:0.875rem 1.1rem;font-size:14px;line-height:1.7;max-width:85%;align-self:flex-end">${text}</div>`;
-
-  // Fire-and-forget: log the question for FAQ tracking (don't block the chat flow)
-  fetch('/api/log-question', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({ question: text })
-  }).catch(() => {});
 
   input.value = '';
   messages.scrollTop = messages.scrollHeight;
@@ -732,6 +734,17 @@ If anyone asks who made you or who built this hub, say you were created by Mia T
     });
     const data = await res.json();
     let reply = data.content?.[0]?.text || 'Sorry, I couldn\'t get a response. Try again or contact the AI team.';
+
+// Cleaned answer text: [PAGE:id] tag stripped, before the "→ Go to X" button is appended
+const answer = reply.replace(/\[PAGE:\w+\]/, '').trim();
+
+// Fire-and-forget: log the question + answer for FAQ tracking (don't block the chat flow)
+fetch('/api/log-question', {
+  method: 'POST',
+  headers: {'Content-Type': 'application/json'},
+  body: JSON.stringify({ question: text, answer })
+}).catch(() => {});
+
 const pageMatch = reply.match(/\[PAGE:(\w+)\]/);
 
 if (pageMatch) {

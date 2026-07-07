@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   try {
     const response = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } });
     const data = await response.json();
-    const faqs = (data.records || []).map(r => ({ question: r.fields.Question, count: r.fields.Count }));
+    const faqs = (data.records || []).map(r => ({ question: r.fields.Question, count: r.fields.Count, answer: r.fields.Answer }));
     res.status(200).json({ faqs });
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch FAQs' });
