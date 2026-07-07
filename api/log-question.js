@@ -35,9 +35,9 @@ export default async function handler(req, res) {
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
+        model: 'claude-sonnet-5',
         max_tokens: 40,
-        system: 'You match user questions to a canonical FAQ topic. You will be given a new user question and a list of existing canonical topics. If the new question is asking about the same underlying thing as one of the existing topics (even if worded differently), respond with that EXISTING topic\'s text EXACTLY as given — do not alter it. If the new question is not a genuine question or help request (greetings, small talk, thanks, test messages), respond with exactly: SKIP. Otherwise, if it doesn\'t match any existing topic, propose a new short canonical topic (5-8 words, title case, no punctuation). Respond with ONLY the topic text or SKIP, nothing else.',
+        system: 'You match user questions to a canonical FAQ topic. You will be given a new user question and a list of existing canonical topics. Err on the side of matching — if the new question is asking about the same general subject as an existing topic, even with different specific wording, treat it as a match. For example, \'MCP Server Options And Features\' and \'What MCPs Exist For Our Use\' are the SAME topic (both about available MCP connectors) and should match. Only propose a new topic if the subject matter is genuinely different, not just differently worded. If there\'s a match, respond with that EXISTING topic\'s text EXACTLY as given — do not alter it. If the new question is not a genuine question or help request (greetings, small talk, thanks, test messages), respond with exactly: SKIP. Otherwise respond with a new short canonical topic (5-8 words, title case, no punctuation). Respond with ONLY the topic text or SKIP, nothing else.',
         messages: [{ role: 'user', content: `Existing topics:\n${existingTopics.map(t => `- ${t}`).join('\n') || '(none yet)'}\n\nNew question: ${question}` }]
       })
     });
